@@ -7,12 +7,6 @@ DOI: [10.1109/TCSVT.2026.3716467](https://doi.org/10.1109/TCSVT.2026.3716467)
 
 This repository provides the official PyTorch implementation of HSKD for image classification.
 
-## Acknowledgement
-
-This project is built upon the open-source codebase of **MixSKD: Self-Knowledge Distillation from Mixup for Image Recognition** (ECCV 2022, [winycg/Self-KD-Lib](https://github.com/winycg/Self-KD-Lib)).
-
-We sincerely thank the MixSKD authors for releasing their code. The training pipeline, model zoo, data pipeline and the baseline implementations under `methods/` are inherited from that release; the HSKD training scheme, the mask feature reconstruction branch and the contrastive branch are added on top of it. If you use this repository, please also consider citing MixSKD.
-
 ## Requirements
 
 - Ubuntu 18.04 LTS
