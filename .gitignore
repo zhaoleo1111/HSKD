@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+wheels/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Datasets, pretrained weights and experiment outputs
+data/
+datasets/
+save/
+runs/
+checkpoints/
+logs/
+*.log
+*.pth
+*.pt
+*.ckpt
+*.tar
+*.tar.gz
+*.zip
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# The repository tracks the project-title README that already exists on GitHub.
+# The local README.md on disk is the upstream Self-KD-Lib document and is
+# intentionally not tracked, so it does not overwrite the GitHub one.
+/README.md
