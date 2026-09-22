@@ -3,9 +3,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 from einops import rearrange
 import copy
-from attention.CBAM import CBAMBlock
-from attention.SEAttention import SEAttention
-from attention.BAM import BAM
+# from attention.CBAM import CBAMBlock
+# from attention.SEAttention import SEAttention
+# from attention.BAM import BAM
 
 def get_attention( preds, temp=1):
         """ preds: Bs*C*W*H """
