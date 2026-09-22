@@ -13,26 +13,6 @@ This project is built upon the open-source codebase of **MixSKD: Self-Knowledge 
 
 We sincerely thank the MixSKD authors for releasing their code. The training pipeline, model zoo, data pipeline and the baseline implementations under `methods/` are inherited from that release; the HSKD training scheme, the mask feature reconstruction branch and the contrastive branch are added on top of it. If you use this repository, please also consider citing MixSKD.
 
-## Implementation overview
-
-HSKD performs self-knowledge distillation that is driven by mixup, where supervision is applied over multiple feature levels and is supplied by the model of the previous epoch. Following `hskd.py`, each training iteration proceeds as follows.
-
-Each sample is loaded as two independently augmented views, `inputs1` and `inputs2`. `inputs1` is fed through mixup (`alpha = 0.4`) to produce a mixed input together with a mixed label pair and the mixing coefficient `lam`.
-
-The network returns both the classifier logits and its intermediate features. Three supervisory signals are then combined:
-
-- **Hierarchical self-knowledge distillation.** The model snapshot saved at the end of the previous epoch (`lastmodel.pth.tar`) acts as the teacher. Its logits on `inputs2` and on the mixup-permuted view supervise the current model (`hist_loss`), and a soft target built from the one-hot labels mixed with the teacher's probabilities supervises the auxiliary branch (`mix_kl`). The mixing ratio is annealed over training as `alpha_t = alpha_T * (epoch + 1) / epochs`.
-- **Mask feature reconstruction.** A reconstruction wrapper consumes the multi-level features of the current network and predicts from a masked feature representation; its output is distilled against the current classifier logits, so that all feature levels are supervised jointly (`aux_loss`).
-- **Contrastive learning.** A projection head maps the final feature to a 128-dimensional embedding. The projected features of the mixup-mixed teacher view are contrasted against the projected student features with a supervised contrastive loss (`cl_loss`, temperature 0.3).
-
-The overall objective is
-
-```python
-loss = loss_cls + 0.5 * (aux_loss + mix_kl) + 0.2 * cl_loss + 0.5 * hist_loss
-```
-
-where `loss_cls` is the mixup cross-entropy term. During the first epoch no teacher is available yet, so only `0.5 * aux_loss` is used.
-
 ## Requirements
 
 - Ubuntu 18.04 LTS
